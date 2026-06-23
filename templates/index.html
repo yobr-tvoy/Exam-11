@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Список ресторанов</title>
+    <link rel="stylesheet" href="https://jsdelivr.net">
+</head>
+<body>
+    <h1>🍽️ Список ресторанов</h1>
+    <form action="/add" method="POST">
+        <input type="text" name="name" placeholder="Название" required>
+        <input type="text" name="cuisine" placeholder="Кухня" required>
+        <input type="number" name="rating" placeholder="Рейтинг (0-5)" min="0" max="5" step="0.1" required>
+        <input type="text" name="address" placeholder="Адрес" required>
+        <button type="submit">Добавить</button>
+    </form>
+    <hr>
+    {% if restaurants %}
+        <table>
+            <thead>
+                <tr><th>Название</th><th>Кухня</th><th>Рейтинг</th><th>Адрес</th><th>Действие</th></tr>
+            </thead>
+            <tbody>
+                {% for rest in restaurants %}
+                    <tr>
+                        <td><b>{{ rest.name }}</b></td>
+                        <td>{{ rest.cuisine }}</td>
+                        <td>⭐ {{ rest.rating }}</td>
+                        <td>{{ rest.address }}</td>
+                        <td><a href="/delete/{{ loop.index0 }}" style="color:#ff4d4d;">Удалить</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Список пуст. Добавьте первый ресторан!</p>
+    {% endif %}
+</body>
+</html>
